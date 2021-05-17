@@ -1,5 +1,7 @@
+variables:
+  HUB: hub.spesolution.com
+
 include:
-  - local: .vars.yml
   - local: .deploy.before-script.yml 
 
 docker_deploy:

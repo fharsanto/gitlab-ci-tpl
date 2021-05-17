@@ -1,5 +1,8 @@
+variables:
+  HUB: hub.spesolution.com
+  IMAGE_TAG: $HUB/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME 
+
 include:
-  - local: .vars.yml
   - local: .auth.before-script.yml 
 
 docker_build:
