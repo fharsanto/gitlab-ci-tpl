@@ -1,5 +1,6 @@
 # CI/CD Templates
 
+## Prequisite Environment
 env `APP_PREFIX` is prefix for application, sample value `SPK_`
 
 env `DOCKER_AUTH_CONFIG` must be defined for credentials hub.spesolution.com, sample value:
@@ -19,7 +20,6 @@ env `DEPLOY_SSH_KEY` is private key SSH for specific environment (development, b
 ```
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
-NhAAAAAwEAAQAAAgEAwiyUkW/
 -----END OPENSSH PRIVATE KEY-----
 ```
 
@@ -43,7 +43,7 @@ StrictHostKeyChecking no
 env `DEPLOY_SSH_SERVER` is name of environment server, see sample value of DEPLOY_SSH_CONFIG, sample value:
 `serverName`
 
-Sample usages
+## Sample usages
 
 .gitlab-ci.yml
 ```
@@ -58,7 +58,7 @@ include:
     file: '/docker.deploy.yml'
 ```
 
-Sample usages with extends
+## Sample usages with extends
 ```
 stages:
   - my-build
