@@ -1,0 +1,10 @@
+include:
+  - local: .vars.yml
+  - local: .auth.before-script.yml 
+
+docker_build:
+  image: docker:stable
+  stage: build
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG

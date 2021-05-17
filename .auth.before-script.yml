@@ -1,0 +1,3 @@
+default:
+  before_script:
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json

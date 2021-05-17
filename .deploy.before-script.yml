@@ -1,0 +1,8 @@
+default:
+  before_script:
+    - eval $(ssh-agent -s);
+    - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -;
+    - mkdir -p ~/.ssh;
+    - chmod 700 ~/.ssh;
+    - echo "$DEPLOY_SSH_CONFIG" >> ~/.ssh/config;
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
