@@ -1,6 +1,8 @@
 variables:
   HUB: hub.spesolution.com
-  IMAGE_TAG: $HUB/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME 
+  IMAGE_TAG: $HUB/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME
+  GIT_SUBMODULE_STRATEGY: recursive
+  DOCKER_FILE: "." 
 
 include:
   - local: .auth.before-script.yml 
@@ -9,5 +11,5 @@ docker_build:
   image: docker:stable
   stage: build
   script:
-    - docker build -t $IMAGE_TAG .
+    - docker build -t $IMAGE_TAG $DOCKER_FILE
     - docker push $IMAGE_TAG
