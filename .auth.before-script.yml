@@ -2,3 +2,4 @@ default:
   before_script:
     - mkdir $HOME/.docker
     - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+    - echo "Hello, I am $(whoami)@$(hostname):$PWD"
