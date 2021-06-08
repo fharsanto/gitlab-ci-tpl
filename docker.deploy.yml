@@ -1,12 +1,12 @@
 variables:
-  HUB: hub.spesolution.com
+  CI_HUB: hub.spesolution.com
 
 include:
   - local: .deploy.before-script.yml 
 
 docker_deploy:
-  image: $HUB/tools/dcd:latest
+  image: $CI_HUB/tools/dcd:latest
   stage: deploy
   script:
     - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" pull || true;
-    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file <(env | grep ^$APP_PREFIX) up -d --remove-orphans || true;
+    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file <(env | grep -v '^CI\|^KUBE\|^GITLAB') up -d --remove-orphans || true;
