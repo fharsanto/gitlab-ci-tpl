@@ -2,9 +2,6 @@ variables:
   CI_HUB: hub.spesolution.com
   CI_DEPLOYMENT_FILE: deployment.yml 
 
-include:
-  - local: .auth.before-script.yml 
-
 docker_to_k8s:
   image: $CI_HUB/tools/kubectl:latest
   stage: deploy
