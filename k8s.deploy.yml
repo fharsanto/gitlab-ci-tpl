@@ -10,3 +10,6 @@ docker_to_k8s:
     - kubectl create secret generic $CI_PROJECT_NAME-env -n $KUBE_NAMESPACE --save-config --dry-run=client --from-env-file=<(env | grep -v '^CI\|^KUBE\|^GITLAB') -o yaml | kubectl apply -f -
     - kubectl apply -f $CI_DEPLOYMENT_FILE -n $KUBE_NAMESPACE
     - kubectl rollout restart deployment/$CI_PROJECT_NAME -n $KUBE_NAMESPACE  
+  environment:
+    name: development
+    url: https://sukangetik.com
