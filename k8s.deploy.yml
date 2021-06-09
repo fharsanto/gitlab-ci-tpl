@@ -10,6 +10,7 @@ docker_to_k8s:
   stage: deploy
   script:
     - echo "Deploy $CI_PROJECT_NAME to k8s ns $KUBE_NAMESPACE ..."
+    - echo "generate secret $CI_ENV_GS with filter $CI_ENV_FILTER_KEY ."
     - >
       if [ "$CI_ENV_GS" == "true" ]; then
         kubectl create secret generic $CI_PROJECT_NAME-env \
