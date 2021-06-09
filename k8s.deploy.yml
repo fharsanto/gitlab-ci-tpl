@@ -13,11 +13,13 @@ docker_to_k8s:
     - echo "generate secret $CI_ENV_GS with filter $CI_ENV_FILTER_KEY ."
     - >
       if [ "$CI_ENV_GS" == "true" ]; then
-        echo "secret generated"
+        kubectl create secret generic $CI_PROJECT_NAME-env \
+          -n $KUBE_NAMESPACE --save-config --dry-run=client \
+          --from-env-file=<(compgen -v | (eval $CI_ENV_FILTER_CMD) | while read line; do echo $line=${!line};done) \
+          -o yaml | kubectl apply -f -
       else
         echo "none happened"
       fi 
-    - kubectl create secret generic $CI_PROJECT_NAME-env -n $KUBE_NAMESPACE --save-config --dry-run=client --from-env-file=<(compgen -v | grep -v '^CI\|^KUBE\|^GITLAB\|^DOCKER' | while read line; do echo $line=${!line};done) -o yaml | kubectl apply -f -
     - kubectl apply -f $CI_DEPLOYMENT_FILE -n $KUBE_NAMESPACE
     - kubectl rollout restart deployment/$CI_PROJECT_NAME -n $KUBE_NAMESPACE  
   environment:
