@@ -12,6 +12,7 @@ docker_deploy:
     - echo "$DEPLOY_SSH_CONFIG" >> ~/.ssh/config;
     - mkdir $HOME/.docker
     - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+    - echo "Deploy to $DEPLOY_SSH_SERVER with cfg:$DEPLOY_SSH_CONFIG"
   image: $CI_HUB/tools/dcd:latest
   stage: deploy
   script:
