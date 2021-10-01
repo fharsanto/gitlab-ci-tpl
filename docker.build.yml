@@ -5,8 +5,10 @@ variables:
   CI_DOCKER_FILE: "."
 
 docker_build:
-  include:
-    - local: .auth.before-script.yml
+  before_script:
+    - mkdir $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+    - echo "Hello, I am $(whoami)@$(hostname):$PWD"
   image: docker:stable
   stage: build
   script:

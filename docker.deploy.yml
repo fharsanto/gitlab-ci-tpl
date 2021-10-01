@@ -2,8 +2,14 @@ variables:
   CI_HUB: hub.spesolution.com
 
 docker_deploy:
-  include:
-    - local: .deploy.before-script.yml
+  before_script:
+    - eval $(ssh-agent -s);
+    - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -;
+    - mkdir -p ~/.ssh;
+    - chmod 700 ~/.ssh;
+    - echo "$DEPLOY_SSH_CONFIG" >> ~/.ssh/config;
+    - mkdir $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
   image: $CI_HUB/tools/dcd:latest
   stage: deploy
   script:
