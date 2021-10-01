@@ -1,5 +1,7 @@
 variables:
   CI_HUB: hub.spesolution.com
+  CI_ENV_FILTER_KEY: ^CI\|^KUBE\|^GITLAB\|^DOCKER
+  CI_ENV_FILTER_CMD: grep -v '$CI_FILTER_ENV_KEY'
 
 docker_deploy:
   before_script:
@@ -14,4 +16,4 @@ docker_deploy:
   stage: deploy
   script:
     - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" pull || true;
-    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file <(env | grep -v '^CI\|^KUBE\|^GITLAB') up -d --remove-orphans || true;
+    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file <(compgen -v | (eval $CI_ENV_FILTER_CMD) | while read line; do echo $line=${!line};done) up -d --remove-orphans || true;
