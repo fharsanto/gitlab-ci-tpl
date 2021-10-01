@@ -1,10 +1,9 @@
 variables:
   CI_HUB: hub.spesolution.com
 
-include:
-  - local: .deploy.before-script.yml 
-
 docker_deploy:
+  include:
+    - local: .deploy.before-script.yml
   image: $CI_HUB/tools/dcd:latest
   stage: deploy
   script:

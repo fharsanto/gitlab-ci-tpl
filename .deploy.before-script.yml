@@ -5,4 +5,5 @@ default:
     - mkdir -p ~/.ssh;
     - chmod 700 ~/.ssh;
     - echo "$DEPLOY_SSH_CONFIG" >> ~/.ssh/config;
+    - mkdir $HOME/.docker
     - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
