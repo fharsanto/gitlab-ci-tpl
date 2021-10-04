@@ -23,7 +23,7 @@ docker_to_k8s_prod:
     - |
       cat <<EOF >./kustomization.yaml
       resources:
-      - deployment.yaml
+      - deployment.yml
       images:
       - newTag: master
       EOF
