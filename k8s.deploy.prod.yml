@@ -25,7 +25,9 @@ docker_to_k8s_prod:
       resources:
       - deployment.yml
       images:
-      - newTag: master
+      - name: $CI_HUB/$CI_PROJECT_PATH:dev
+        newName: $CI_HUB/$CI_PROJECT_PATH
+        newTag: $CI_COMMIT_REF_NAME
       EOF
     - cat ./kustomization.yaml && kubectl kustomize ./
     - kubectl kustomize ./ | kubectl -n $KUBE_NAMESPACE apply -f -
