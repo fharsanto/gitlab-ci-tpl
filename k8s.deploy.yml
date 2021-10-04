@@ -19,9 +19,12 @@ docker_to_k8s:
           -o yaml | kubectl apply -f -
       else
         echo "none happened"
-      fi 
+      fi
     - kubectl apply -f $CI_DEPLOYMENT_FILE -n $KUBE_NAMESPACE
-    - kubectl rollout restart deployment/$CI_PROJECT_NAME -n $KUBE_NAMESPACE  
+    - kubectl rollout restart deployment/$CI_PROJECT_NAME -n $KUBE_NAMESPACE
   environment:
     name: development
     url: https://sukangetik.com
+  rules:
+    - if: $CI_COMMIT_BRANCH != "master"
+      when: on_success
