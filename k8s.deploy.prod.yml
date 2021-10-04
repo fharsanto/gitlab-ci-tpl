@@ -20,7 +20,7 @@ docker_to_k8s_prod:
       else
         echo "none happened"
       fi
-    - >
+    - |
       cat <<EOF >./kustomization.yaml
       resources:
       - deployment.yaml
