@@ -5,7 +5,7 @@ variables:
   CI_ENV_FILTER_CMD: grep -v '$CI_FILTER_ENV_KEY'
   CI_ENV_GS: "true" # generating secret in k8s, fill false when disabled it
 
-docker_to_k8s:
+docker_to_k8s_prod:
   image: $CI_HUB/tools/kubectl:latest
   stage: deploy
   script:
