@@ -33,6 +33,6 @@ docker_to_k8s_prod:
   environment:
     name: production
     url: https://sukangetik.com
-  when: manual
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
+      when: manual
