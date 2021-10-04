@@ -27,6 +27,7 @@ docker_to_k8s_prod:
       images:
       - newTag: master
       EOF
+    - ls -al .
     - kubectl kustomize .
     - kubectl kustomize . | kubectl  -n $KUBE_NAMESPACE apply -f -
     - kubectl rollout restart deployment/$CI_PROJECT_NAME -n $KUBE_NAMESPACE
