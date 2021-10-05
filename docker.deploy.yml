@@ -16,5 +16,6 @@ docker_deploy:
   image: $CI_HUB/tools/dcd:latest
   stage: deploy
   script:
+    - ssh $DEPLOY_SSH_SERVER -v date
     - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" pull || true;
     - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file <(compgen -v | (eval $CI_ENV_FILTER_CMD) | while read line; do echo $line=${!line};done) up -d --remove-orphans || true;
