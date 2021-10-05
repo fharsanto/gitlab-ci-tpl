@@ -18,5 +18,6 @@ docker_deploy:
   script:
     - ssh $DEPLOY_SSH_SERVER date
     - echo "generate env with cmd (eval $CI_ENV_FILTER_CMD) and filter $CI_ENV_FILTER_KEY ."
+    - cat <(compgen -v | (eval $CI_ENV_FILTER_CMD) | while read line; do echo $line=${!line};done) > .environment
     - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" pull || true;
-    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file <(compgen -v | (eval $CI_ENV_FILTER_CMD) | while read line; do echo $line=${!line};done) up -d --remove-orphans || true;
+    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file .environment up -d --remove-orphans || true;
