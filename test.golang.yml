@@ -1,0 +1,11 @@
+unit_tests:
+  image: hub.spesolution.com/tools/golang-git:latest
+  stage: test
+  before_script:
+    - go get -v -d ./...
+  script:
+    - sh coverage.sh
+  rules:
+    - if: '$DEPLOY_ONLY == "true"'
+      when: never
+    - when: always

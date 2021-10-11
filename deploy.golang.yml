@@ -1,0 +1,22 @@
+variables:
+  CI_HUB: hub.spesolution.com
+
+golang_deploy:
+  before_script:
+    - eval $(ssh-agent -s);
+    - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -;
+    - mkdir -p ~/.ssh;
+    - chmod 700 ~/.ssh;
+    - echo "$DEPLOY_SSH_CONFIG" >> ~/.ssh/config;
+    - mkdir $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+    # - echo "Deploy to $DEPLOY_SSH_SERVER with cfg:$DEPLOY_SSH_CONFIG"
+  image: $CI_HUB/tools/dcd:latest
+  stage: deploy
+  script:
+    - ssh $DEPLOY_SSH_SERVER date
+    - echo "generate env with cmd (eval $CI_ENV_FILTER_CMD) and filter $CI_ENV_FILTER_KEY ."
+    - cat <(env) > .environment
+    # - cat .environment
+    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" pull || true;
+    - docker-compose -H "ssh://$DEPLOY_SSH_SERVER" --env-file .environment up -d --remove-orphans || true;

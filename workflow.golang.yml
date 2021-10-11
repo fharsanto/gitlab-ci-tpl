@@ -1,0 +1,11 @@
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "dev"'
+      changes:
+        - ".gitlab-ci.yml"
+        - "docker-compose.yaml"
+        - "Dockerfile"
+        - "**/*.go"
+        - "**/**/*.go"
+        - "go.{mod,sum}"
+      when: always

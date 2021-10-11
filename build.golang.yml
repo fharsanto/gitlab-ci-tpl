@@ -1,0 +1,20 @@
+variables:
+  CI_HUB: hub.spesolution.com
+  CI_IMAGE_TAG: $CI_HUB/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+  GIT_SUBMODULE_STRATEGY: recursive
+  CI_DOCKER_FILE: "."
+
+golang_build:
+  before_script:
+    - mkdir $HOME/.docker
+    - echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+    - echo "Hello, I am $(whoami)@$(hostname):$PWD"
+  image: docker:stable
+  stage: build
+  script:
+    - docker build -t $CI_IMAGE_TAG $CI_DOCKER_FILE
+    - docker push $CI_IMAGE_TAG
+  rules:
+    - if: '$DEPLOY_ONLY == "true"'
+      when: never
+    - when: always
