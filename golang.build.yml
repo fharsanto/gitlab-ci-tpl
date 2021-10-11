@@ -17,4 +17,4 @@ golang_build:
   rules:
     - if: '$DEPLOY_ONLY == "true"'
       when: never
-    - when: always
+    # - when: always
