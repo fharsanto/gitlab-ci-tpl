@@ -4,7 +4,7 @@ unit_tests:
   before_script:
     - go get -v -d ./...
   script:
-    - sh coverage.sh
+    - sh /go/bin/coverage.sh
   rules:
     - if: '$DEPLOY_ONLY == "true"'
       when: never
