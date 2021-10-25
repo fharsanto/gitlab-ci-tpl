@@ -3,11 +3,11 @@
 ## Prequisite Environment
 env `APP_PREFIX` is prefix for application, sample value `SPK_`
 
-env `DOCKER_AUTH_CONFIG` must be defined for credentials hub.spesolution.com, sample value:
+env `DOCKER_AUTH_CONFIG` must be defined for Docker hub credentials (can be public or private), sample value:
 ```
 {
 	"auths": {
-		"hub.spesolution.com": {
+		"YourHubUrl": {
 			"auth": "base64-credentials"
 		}
 	},

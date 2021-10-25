@@ -1,5 +1,5 @@
 variables:
-  CI_HUB: hub.spesolution.com
+  CI_HUB: $CI_REGISTRY
   CI_DEPLOYMENT_FILE: deployment.yml
   CI_ENV_FILTER_KEY: ^CI\|^KUBE\|^GITLAB\|^DOCKER
   CI_ENV_FILTER_CMD: grep -v '$CI_FILTER_ENV_KEY'
